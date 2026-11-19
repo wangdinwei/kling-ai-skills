@@ -19,8 +19,12 @@ npm registry 被墙，mihomo 代理 TLS 握手也经常断开。通过境外 VPS
 # 1. 在境外 VPS 上下载 tarball
 curl -sL 'https://registry.npmjs.org/@klingai/cli-cn/-/cli-cn-0.1.1.tgz' -o /tmp/kling-cli.tgz
 
-# 2. scp 回本地服务器
-sshpass -p 'VPS密码' scp root@VPS_IP:/tmp/kling-cli.tgz /tmp/kling-cli.tgz
+# 2. 取回本地（用 SSH key，不要用明文密码）
+scp <user>@<your-vps>:/tmp/kling-cli.tgz /tmp/kling-cli.tgz
+
+# 或者：本地已有可用代理时，直接走代理下载，省掉中转
+# export https_proxy=http://127.0.0.1:7890
+# curl -sL 'https://registry.npmjs.org/@klingai/cli-cn/-/cli-cn-0.1.1.tgz' -o /tmp/kling-cli.tgz
 
 # 3. 从本地 tarball 安装
 npm i -g /tmp/kling-cli.tgz
